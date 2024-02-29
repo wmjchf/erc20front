@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+import { config } from "./wagmi.config";
+
+import { WalletOptions } from "./wallet-options";
+import { GetBalance } from "./getBalance";
+import { Transfer } from "./transfer";
+import { Approve } from "./approve";
+import { Allowance } from "./allowance";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <WalletOptions></WalletOptions>
+        <GetBalance></GetBalance>
+        <Transfer></Transfer>
+        <Approve></Approve>
+        <Allowance></Allowance>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
 
